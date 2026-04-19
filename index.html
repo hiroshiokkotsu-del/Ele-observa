@@ -1,1 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema Arquivado</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00ff9f;
+      font-family: monospace;
+      text-align: center;
+      padding: 50px;
+      overflow: hidden;
+    }
 
+    .glitch {
+      font-size: 2em;
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px red; }
+      25% { text-shadow: -2px 0 blue; }
+      50% { text-shadow: 2px -2px red; }
+      75% { text-shadow: -2px 2px blue; }
+      100% { text-shadow: 2px 2px red; }
+    }
+
+    .eyes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .eye {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: red;
+      border-radius: 50%;
+      box-shadow: 0 0 20px red;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid #00ff9f;
+      color: #00ff9f;
+      cursor: pointer;
+    }
+
+    input {
+      margin-top: 20px;
+      padding: 10px;
+      background: black;
+      border: 1px solid #00ff9f;
+      color: #00ff9f;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="glitch">ARQUIVO_CORROMPIDO</h1>
+  <p id="texto">Se você está vendo isso... já é tarde demais.</p>
+
+  <!-- senha: 7319 -->
+
+  <input type="text" id="senha" placeholder="Digite o código...">
+  <br>
+  <button onclick="verificar()">Acessar</button>
+
+  <p id="mensagem"></p>
+
+  <div class="eyes" id="eyes"></div>
+
+  <script>
+    function verificar() {
+      const senha = document.getElementById("senha").value;
+
+      if (senha === "7319") {
+        window.location.href = "segredo.html";
+      } else {
+        document.getElementById("mensagem").innerText = "ACESSO NEGADO";
+      }
+    }
+
+    const eyesContainer = document.getElementById("eyes");
+
+    function createEye(x, y) {
+      const eye = document.createElement("div");
+      eye.classList.add("eye");
+      eye.style.left = x + "px";
+      eye.style.top = y + "px";
+      eyesContainer.appendChild(eye);
+    }
+
+    function spawnEyes() {
+      eyesContainer.innerHTML = "";
+      for (let i = 0; i < 10; i++) {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        createEye(x, y);
+      }
+      eyesContainer.style.opacity = 1;
+
+      setTimeout(() => {
+        eyesContainer.style.opacity = 0;
+      }, 800);
+    }
+
+    // evento aleatório tipo jumpscare leve
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        spawnEyes();
+      }
+    }, 3000);
+
+    // muda texto sozinho (efeito ARG vivo)
+    setTimeout(() => {
+      document.getElementById("texto").innerText = "...eles estão olhando pra você.";
+    }, 8000);
+
+  </script>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>???</title>
+  <style>
+    body {
+      background-color: black;
+      color: red;
+      font-family: monospace;
+      text-align: center;
+      padding: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>VOCÊ NÃO DEVERIA ESTAR AQUI</h1>
+  <p>Eles estão observando.</p>
+
+  <!-- próxima pista: Uifsf jt op ftdbqf -->
+
+</body>
+</html>
