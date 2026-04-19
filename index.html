@@ -2,157 +2,93 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Sistema Arquivado</title>
+  <title>Arquivo</title>
   <style>
     body {
-      background-color: black;
-      color: #00ff9f;
-      font-family: monospace;
-      text-align: center;
-      padding: 50px;
+      margin: 0;
+      background: black;
       overflow: hidden;
+      font-family: monospace;
+      color: white;
     }
 
-    .glitch {
-      font-size: 2em;
-      animation: glitch 1s infinite;
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
     }
 
-    @keyframes glitch {
-      0% { text-shadow: 2px 2px red; }
-      25% { text-shadow: -2px 0 blue; }
-      50% { text-shadow: 2px -2px red; }
-      75% { text-shadow: -2px 2px blue; }
-      100% { text-shadow: 2px 2px red; }
-    }
-
-    .eyes {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
+    .olhos {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px; /* VOCÊ PODE MUDAR O TAMANHO */
       opacity: 0;
       transition: opacity 0.3s;
     }
 
-    .eye {
+    .overlay {
       position: absolute;
-      width: 40px;
-      height: 40px;
-      background: red;
-      border-radius: 50%;
-      box-shadow: 0 0 20px red;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      pointer-events: none;
     }
 
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: transparent;
-      border: 1px solid #00ff9f;
-      color: #00ff9f;
-      cursor: pointer;
-    }
-
-    input {
-      margin-top: 20px;
-      padding: 10px;
-      background: black;
-      border: 1px solid #00ff9f;
-      color: #00ff9f;
-    }
-  </style>
-</head>
-<body>
-
-  <h1 class="glitch">ARQUIVO_CORROMPIDO</h1>
-  <p id="texto">Se você está vendo isso... já é tarde demais.</p>
-
-  <!-- senha: 7319 -->
-
-  <input type="text" id="senha" placeholder="Digite o código...">
-  <br>
-  <button onclick="verificar()">Acessar</button>
-
-  <p id="mensagem"></p>
-
-  <div class="eyes" id="eyes"></div>
-
-  <script>
-    function verificar() {
-      const senha = document.getElementById("senha").value;
-
-      if (senha === "7319") {
-        window.location.href = "segredo.html";
-      } else {
-        document.getElementById("mensagem").innerText = "ACESSO NEGADO";
-      }
-    }
-
-    const eyesContainer = document.getElementById("eyes");
-
-    function createEye(x, y) {
-      const eye = document.createElement("div");
-      eye.classList.add("eye");
-      eye.style.left = x + "px";
-      eye.style.top = y + "px";
-      eyesContainer.appendChild(eye);
-    }
-
-    function spawnEyes() {
-      eyesContainer.innerHTML = "";
-      for (let i = 0; i < 10; i++) {
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        createEye(x, y);
-      }
-      eyesContainer.style.opacity = 1;
-
-      setTimeout(() => {
-        eyesContainer.style.opacity = 0;
-      }, 800);
-    }
-
-    // evento aleatório tipo jumpscare leve
-    setInterval(() => {
-      if (Math.random() > 0.7) {
-        spawnEyes();
-      }
-    }, 3000);
-
-    // muda texto sozinho (efeito ARG vivo)
-    setTimeout(() => {
-      document.getElementById("texto").innerText = "...eles estão olhando pra você.";
-    }, 8000);
-
-  </script>
-
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>???</title>
-  <style>
-    body {
-      background-color: black;
-      color: red;
-      font-family: monospace;
+    .mensagem {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
       text-align: center;
-      padding: 50px;
+      font-size: 14px;
+      opacity: 0.6;
     }
   </style>
 </head>
 <body>
 
-  <h1>VOCÊ NÃO DEVERIA ESTAR AQUI</h1>
-  <p>Eles estão observando.</p>
+<div class="container">
 
-  <!-- próxima pista: Uifsf jt op ftdbqf -->
+  <!-- COLOQUE SUA IMAGEM DOS OLHOS AQUI -->
+  <img src="olhos.png" class="olhos" id="olhos">
+
+  <div class="overlay"></div>
+
+  <div class="mensagem">não olhe por muito tempo.</div>
+
+</div>
+
+<script>
+  const olhos = document.getElementById("olhos");
+
+  function aparecerOlhos() {
+    olhos.style.opacity = 1;
+
+    setTimeout(() => {
+      olhos.style.opacity = 0;
+    }, 1200);
+  }
+
+  // aparece aleatoriamente
+  setInterval(() => {
+    if (Math.random() > 0.6) {
+      aparecerOlhos();
+    }
+  }, 3000);
+
+  // aparece quando o mouse para (efeito creepy)
+  let timeout;
+  document.addEventListener("mousemove", () => {
+    clearTimeout(timeout);
+
+    olhos.style.opacity = 0;
+
+    timeout = setTimeout(() => {
+      aparecerOlhos();
+    }, 2000);
+  });
+</script>
 
 </body>
 </html>
